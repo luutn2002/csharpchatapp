@@ -6,8 +6,7 @@
 *.suo
 *.user
 *.sln.docstates
-*.json
-**/logs
+*.Development.json
 
 # Build results
 

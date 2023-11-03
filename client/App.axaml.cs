@@ -19,34 +19,27 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var dialog = new StartWindow()
-            {
-                DataContext = new StartWindowViewModel(),
-            };
+            StartWindow start = new(){DataContext = new StartWindowViewModel()};
+            RegisterWindow reg = new(){DataContext = new RegisterWindowViewModel()};
+            MainWindow main = new(){DataContext = new MainWindowViewModel()};
 
-            dialog.ViewModel!.OpenMainCommand.Subscribe(result =>
+            start.ViewModel!.OpenMainCommand.Subscribe(result =>
             {
-                var mw = new MainWindow
-                {
-                    DataContext = result,
-                };
-                desktop.MainWindow = mw;
-                mw.Show();
-                dialog.Close();
+                main.DataContext = result;
+                desktop.MainWindow = main;
+                main.Show();
+                start.Close();
+                reg.Close();
             });
 
-            dialog.ViewModel!.OpenRegisterCommand.Subscribe(result =>
+            start.ViewModel!.OpenRegisterCommand.Subscribe(result =>
             {
-                var reg = new RegisterWindow
-                {
-                    DataContext = result,
-                };
+                reg.DataContext = result;
                 desktop.MainWindow = reg;
                 reg.Show();
             });
 
-
-            desktop.MainWindow = dialog;
+            desktop.MainWindow = start;
         }
 
         base.OnFrameworkInitializationCompleted();

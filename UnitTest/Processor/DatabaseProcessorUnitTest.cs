@@ -1,11 +1,12 @@
 using Xunit;
 using server.Processor;
+using server.Script;
 
 namespace UnitTest.Processor
 {
   public class DatabaseProcessorUnitTest
   {
-    readonly DatabaseProcessor processor = new(){UnitTestMode = true};
+    readonly DatabaseProcessor processor = new(DevelopmentMode:true){UnitTestMode = true};
     [Fact]
     public void TestConnectionSQLServer()
     {
@@ -18,6 +19,14 @@ namespace UnitTest.Processor
     {
       using var mysqlCon = processor.CreateConnection();
       var result = processor.ExecuteSQLCommandAndRead("SELECT VERSION()");
+      Assert.NotNull(result);
+    }
+
+    [Fact]
+    public void TestUserDatabaseCreate()
+    {
+      UserAccountDatabaseGen GenScript = new(ExternalProcessor:processor);
+      var result = GenScript.CreateUserDatabase();
       Assert.NotNull(result);
     }
   }

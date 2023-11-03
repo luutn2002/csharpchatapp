@@ -16,7 +16,7 @@
         <Panel Margin="20">
             <TextBlock FontWeight="Bold" FontSize="20" Text="Welcome to ChatGRPC" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" 
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
                     ColumnDefinitions="Auto" 
                     Margin="30"
                     HorizontalAlignment="Center" 
@@ -33,14 +33,17 @@
                 </Grid.Styles>
                 
                 <TextBox Grid.Row="1" 
-                        Grid.Column="0" 
-                        Text="{Binding RegisterUsername}"
+                        Grid.Column="0"
+                        MaxLength="15"
+                        Text="{Binding RegisterUsername, Mode=OneWayToSource}"
                         Watermark="Username"/>
 
                 <TextBox Grid.Row="2" 
                         Grid.Column="0" 
                         PasswordChar="*"
-                        Text="{Binding RegisterPassword}"
+                        Classes="revealPasswordButton"
+                        MaxLength="15"
+                        Text="{Binding RegisterPassword, Mode=OneWayToSource}"
                         Watermark="Password"/>
 
                 <Button Grid.Row="4" 
@@ -48,6 +51,17 @@
                         Content="Register"
                         Command="{Binding AccountRegisterCommand}">
                 </Button>
+
+                <Button Grid.Row="6" 
+                        Grid.Column="0" 
+                        Content="Back to login"
+                        Command="{Binding OpenStartCommand}">
+                </Button>
+
+                <TextBlock Grid.Row="8" 
+                        Grid.Column="0"
+                        Text="{Binding ServerMessage, Mode=OneWay}"
+                        IsVisible="{Binding ServerMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
             </Grid>
 
         </Panel>

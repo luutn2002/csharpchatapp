@@ -1,6 +1,5 @@
 using ReactiveUI;
 using System.Reactive;
-using client.Services;
 
 namespace client.ViewModels
 {
@@ -8,10 +7,10 @@ namespace client.ViewModels
     {
         public ReactiveCommand<Unit, MainWindowViewModel> OpenMainCommand { get; }
         public ReactiveCommand<Unit, RegisterWindowViewModel> OpenRegisterCommand { get; }
-        public StartWindowViewModel(Database db)
+        public StartWindowViewModel()
         {
             OpenMainCommand = ReactiveCommand.Create(() => new MainWindowViewModel());
-            OpenRegisterCommand = ReactiveCommand.Create(() => new RegisterWindowViewModel(db));
+            OpenRegisterCommand = ReactiveCommand.Create(() => new RegisterWindowViewModel());
         }
     }
 }

@@ -37,10 +37,13 @@ namespace server.Processor
     }
     public class DatabaseProcessor : ProcessorBase
     {
-        static readonly IConfiguration Configuration = new ConfigurationBuilder()
-        .AddJsonFile($"{Directory.GetCurrentDirectory()}/Processor/dbsetting.json")
-        .Build();
+        readonly IConfiguration Configuration;
         static readonly EventLogger logger = new();
+        public DatabaseProcessor(bool DevelopmentMode = false){
+            Configuration = new ConfigurationBuilder()
+            .AddJsonFile($"{Directory.GetCurrentDirectory()}/Processor/{(DevelopmentMode ? "dbsetting.Development" : "dbsetting")}.json")
+            .Build();
+        }
         public MySqlConnection? CreateConnection()
         {
             try
@@ -77,6 +80,10 @@ namespace server.Processor
                 while (reader.Read())
                 {
                     result.Add(reader.GetString(0));
+                }
+                if(UnitTestMode)
+                foreach(string line in result){
+                    Console.WriteLine($"Result from Unit Testing: {line}");
                 }
                 return result;
 
