@@ -1,16 +1,15 @@
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using client.ViewModels;
 
 namespace client.Views;
 
-public partial class RegisterWindow : ReactiveWindow<RegisterWindowViewModel>
+public partial class RegisterPanel : UserControl
 {
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
-    public RegisterWindow()
+    public RegisterPanel()
     {
         InitializeComponent();
     }

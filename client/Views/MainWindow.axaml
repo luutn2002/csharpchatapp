@@ -2,14 +2,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:views="clr-namespace:client.Views"
         xmlns:vm="using:client.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:DataType="vm:MainWindowViewModel"
         x:Class="client.Views.MainWindow"
-        Title="Welcome"
-        WindowStartupLocation="CenterScreen">
-        
-        <Panel Margin="20">
-        </Panel>
+        Title="{Binding Title}"
+        WindowStartupLocation="CenterScreen"
+        Height="600" Width="600">
 
+        <Window.DataContext>
+                <vm:MainWindowViewModel/>
+        </Window.DataContext>
+
+        <StackPanel  Margin="20">
+                <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+                </StackPanel.Styles>
+                <views:LoginPanel IsVisible="{Binding IsShowingLoginPanel, Mode=OneWay}" DataContext="{Binding LoginViewModel}"/>
+                <views:RegisterPanel IsVisible="{Binding IsShowingRegisterPanel, Mode=OneWay}" DataContext="{Binding RegisterViewModel}"/>
+                <Button Content="{Binding SwapButtonName}"
+                    Command="{Binding SwapRegisterAndLogin}"/>
+        </StackPanel>
 </Window>

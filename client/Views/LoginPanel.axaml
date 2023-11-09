@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:vm="using:client.ViewModels"
+                mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+                x:DataType="vm:LoginPanelViewModel"
+                x:Class="client.Views.LoginPanel">
+
+    <Panel Margin="20">
+        <TextBlock FontWeight="Bold" FontSize="20" Text="Welcome to ChatGRPC" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto," 
+                ColumnDefinitions="Auto" 
+                Margin="30"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+            <Grid.Styles>
+            <Style Selector="Button">
+                <Setter Property="Margin" Value="3"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+            <Style Selector="TextBox">
+                <Setter Property="Margin" Value="3"/>
+            </Style>
+            </Grid.Styles>
+            
+            <TextBox Grid.Row="1" 
+                    Grid.Column="0"
+                    MaxLength="15"
+                    Text="{Binding LoginUsername, Mode=OneWayToSource}"
+                    Watermark="Username"/>
+
+            <TextBox Grid.Row="2" 
+                    Grid.Column="0" 
+                    PasswordChar="*"
+                    MaxLength="15"
+                    Classes="revealPasswordButton"
+                    Text="{Binding LoginPassword, Mode=OneWayToSource}"
+                    Watermark="Password"/>
+
+            <Button Grid.Row="3" 
+                Grid.Column="0" 
+                Content="Login"
+                Command="{Binding AccountLoginCommand}"/>
+
+            <Border Grid.Row="4" 
+                    Grid.Column="0"
+                    Background="Gainsboro"
+                    BorderBrush="Black"
+                    BorderThickness="2"
+                    CornerRadius="3"
+                    Padding="10" Margin="10"
+                    IsVisible="{Binding LoginServerMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <TextBlock xml:space="preserve"
+                        Text="{Binding LoginServerMessage, Mode=OneWay}"
+                        IsVisible="{Binding LoginServerMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            </Border>
+        </Grid>
+
+    </Panel>
+
+</UserControl>

@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:client.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:DataType="vm:RegisterPanelViewModel"
+             x:Class="client.Views.RegisterPanel">
+
+        <Panel Margin="20">
+            <TextBlock FontWeight="Bold" FontSize="20" Text="Register an account" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" 
+                    ColumnDefinitions="Auto" 
+                    Margin="30"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center">
+                <Grid.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+                <Style Selector="TextBox">
+                    <Setter Property="Margin" Value="3"/>
+                </Style>
+                </Grid.Styles>
+                
+                <TextBox Grid.Row="1" 
+                        Grid.Column="0"
+                        MaxLength="15"
+                        Text="{Binding RegisterUsername, Mode=OneWayToSource}"
+                        Watermark="Username"/>
+
+                <TextBox Grid.Row="2" 
+                        Grid.Column="0" 
+                        PasswordChar="*"
+                        Classes="revealPasswordButton"
+                        MaxLength="15"
+                        Text="{Binding RegisterPassword, Mode=OneWayToSource}"
+                        Watermark="Password"/>
+
+                <TextBlock Grid.Row="3" 
+                        Grid.Column="0"
+                        IsVisible="{Binding IsContentValid, Mode=OneWay}"
+                        Text="Both password and username&#x0a;must be at least 8 character."/>
+
+                <Button Grid.Row="4" 
+                        Grid.Column="0" 
+                        Content="Register"
+                        Command="{Binding AccountRegisterCommand}">
+                </Button>
+
+                <Border Grid.Row="5" 
+                        Grid.Column="0"
+                        Background="Gainsboro"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        CornerRadius="3"
+                        Padding="10" Margin="10"
+                        IsVisible="{Binding RegisterServerMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        <TextBlock xml:space="preserve"
+                                Text="{Binding RegisterServerMessage, Mode=OneWay}"
+                                IsVisible="{Binding RegisterServerMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                </Border>
+            </Grid>
+
+        </Panel>
+
+</UserControl>

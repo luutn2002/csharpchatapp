@@ -19,10 +19,14 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            StartWindow start = new(){DataContext = new StartWindowViewModel()};
-            RegisterWindow reg = new(){DataContext = new RegisterWindowViewModel()};
-            MainWindow main = new(){DataContext = new MainWindowViewModel()};
+            //StartWindow start = new(){DataContext = new StartWindowViewModel()};
+            //RegisterWindow reg = new(){DataContext = new RegisterWindowViewModel()};
+            desktop.MainWindow = new MainWindow
+            {
+                DataContext = new MainWindowViewModel(),
+            };
 
+            /**
             start.ViewModel!.OpenMainCommand.Subscribe(result =>
             {
                 main.DataContext = result;
@@ -37,9 +41,7 @@ public partial class App : Application
                 reg.DataContext = result;
                 desktop.MainWindow = reg;
                 reg.Show();
-            });
-
-            desktop.MainWindow = start;
+            });**/
         }
 
         base.OnFrameworkInitializationCompleted();

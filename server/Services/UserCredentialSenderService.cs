@@ -14,10 +14,11 @@ public class UserCredentialSenderService : UserCredentialSender.UserCredentialSe
     {
         Console.WriteLine(request.Username);
         Console.WriteLine(request.Password);
-        Console.WriteLine(BCrypt.Net.BCrypt.EnhancedVerify("password", BCrypt.Net.BCrypt.EnhancedHashPassword("password", 13)));
+        Console.WriteLine(request.Action);
+        //Console.WriteLine(BCrypt.Net.BCrypt.EnhancedVerify("password", BCrypt.Net.BCrypt.EnhancedHashPassword("password", 13)));
         return Task.FromResult(new Reply
         {
-            Message = request.Username
+            Message = true
         });
     }
 }
