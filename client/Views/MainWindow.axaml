@@ -26,6 +26,6 @@
                 <views:LoginPanel IsVisible="{Binding IsShowingLoginPanel, Mode=OneWay}" DataContext="{Binding LoginViewModel}"/>
                 <views:RegisterPanel IsVisible="{Binding IsShowingRegisterPanel, Mode=OneWay}" DataContext="{Binding RegisterViewModel}"/>
                 <Button Content="{Binding SwapButtonName}"
-                    Command="{Binding SwapRegisterAndLogin}"/>
+                        Command="{Binding SwapRegisterAndLogin}"/>
         </StackPanel>
 </Window>

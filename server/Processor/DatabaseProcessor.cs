@@ -66,9 +66,8 @@ namespace server.Processor
             }
         }
 
-        public List<string>? ExecuteSQLCommandAndRead(string query)
+        public MySqlDataReader? ExecuteSQLCommandAndReturnReader(string query, MySqlConnection? mysqlCon)
         {
-            using MySqlConnection? mysqlCon = CreateConnection();
             if(mysqlCon != null)
             try
             {
@@ -76,17 +75,7 @@ namespace server.Processor
                 List<string> result = new();
                 var cmd = new MySqlCommand(query, mysqlCon);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader != null)
-                while (reader.Read())
-                {
-                    result.Add(reader.GetString(0));
-                }
-                if(UnitTestMode)
-                foreach(string line in result){
-                    Console.WriteLine($"Result from Unit Testing: {line}");
-                }
-                return result;
-
+                return reader;
             }
             catch (Exception e)
             {

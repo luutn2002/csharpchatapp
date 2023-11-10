@@ -1,6 +1,5 @@
 using Xunit;
 using server.Processor;
-using server.Script;
 
 namespace UnitTest.Processor
 {
